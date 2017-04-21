@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_bg2">
+
+    <TextView
+        android:id="@+id/entry_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="One Leaf"
+        android:textSize="32sp"
+        android:textColor="@color/colorWhite"
+        android:layout_centerInParent="true"/>
+
+    <RelativeLayout
+        android:id="@+id/entry_editor"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:clickable="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:layout_below="@id/entry_text">
+
+        <TextView
+            android:clickable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            style="@style/component_entry_button"
+            android:text="照片"
+            android:textSize="16sp"
+            android:drawableTop="@mipmap/icon_editor"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/entry_camera"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:clickable="true"
+        android:layout_alignBottom="@id/entry_editor"
+        android:layout_toLeftOf="@id/entry_editor"
+        android:layout_marginRight="20dp">
+
+        <TextView
+            android:clickable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            style="@style/component_entry_button"
+            android:text="相机"
+            android:textSize="16sp"
+            android:drawableTop="@mipmap/icon_camera"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/entry_quit"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:clickable="true"
+        android:layout_toRightOf="@id/entry_editor"
+        android:layout_alignBottom="@id/entry_editor"
+        android:layout_marginLeft="20dp">
+
+        <TextView
+            android:clickable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            style="@style/component_entry_button"
+            android:text="日记"
+            android:textSize="16sp"
+            android:drawableTop="@mipmap/icon_list"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
