@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pure_white"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/diary_main_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/DarkSeaGreen">
+
+    </android.support.v7.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/hint_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="日记空空如也~~"
+        android:textColor="@color/dim_grey"
+        android:textSize="30sp" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="15dp">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/diary_list_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/add_diary"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="bottom"
+                android:layout_margin="15dp"
+                android:background="@drawable/shadow_plus"
+                android:gravity="center"
+                android:paddingBottom="15dp"
+                android:text="+"
+                android:textAlignment="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="40sp" />
+
+        </FrameLayout>
+
+        <View
+            android:id="@+id/long_click_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#38000000" />
+
+    </FrameLayout>
+
+</LinearLayout>

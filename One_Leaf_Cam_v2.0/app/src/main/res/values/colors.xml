@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorWhite">#FFFFFF</color>
+
+    <color name="entry_camera">#00CC66</color>
+    <color name="entry_camera_focused">#99FF66</color>
+
+    <color name="entry_editor">#33CC00</color>
+    <color name="entry_editor_focused">#66FF33</color>
+
+    <color name="entry_quit">#6699CC</color>
+    <color name="entry_quit_focused">#99CCFF</color>
+    
+    <color name="light_grey">#D3D3D3</color>
+    <color name="grey">#808080</color>
+
+    <color name="DarkSeaGreen">#8FBC8F</color>
+    <color name="dark_green">#006400</color>
+
+    <color name="dim_grey">	#696969</color>
+    <color name="white_smoke">#F5F5F5</color>
+    <color name="pure_white">#FFFFFF</color>
+
+</resources>

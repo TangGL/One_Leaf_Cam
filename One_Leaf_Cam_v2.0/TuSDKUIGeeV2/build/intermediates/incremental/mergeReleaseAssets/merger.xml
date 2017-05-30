@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="C:\kuaipan\code\AndroidWorkSpace\Final\TuSDKUIGeeV2\assets"/><source path="C:\kuaipan\code\AndroidWorkSpace\Final\TuSDKUIGeeV2\build\generated\assets\shaders\release"/></dataSet><dataSet config="release"><source path="C:\kuaipan\code\AndroidWorkSpace\Final\TuSDKUIGeeV2\build-types\release\assets"/></dataSet></merger>
