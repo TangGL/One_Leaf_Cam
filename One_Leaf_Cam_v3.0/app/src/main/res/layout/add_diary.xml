@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/colorWhite"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:background="@color/DarkSeaGreen"
+        android:id="@+id/diary_main_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/cancel_diary_btn"
+            android:layout_marginStart="10dp"
+            android:text="放弃修改"
+            android:textColor="@color/white_smoke"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/select_time_view"
+            android:text="text2"
+            android:textColor="@color/white_smoke"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/conform_diary_btn"
+            android:layout_marginEnd="10dp"
+            android:text="保存修改"
+            android:textColor="@color/white_smoke"
+            android:layout_gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <EditText
+        android:id="@+id/edit_diary_title"
+        android:padding="15dp"
+        android:hint="标题"
+        android:textColorHint="@color/light_grey"
+        android:textColor="@color/dim_grey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/diary_pic"
+        android:layout_gravity="center"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="150dp" />
+
+    <EditText
+        android:padding="15dp"
+        android:gravity="start"
+        android:id="@+id/edit_diary_detail"
+        android:hint="你想记录点什么..."
+        android:textColorHint="@color/light_grey"
+        android:textColor="@color/dim_grey"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+    <TableRow
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_gravity="end"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <TextView
+            android:id="@+id/add_location_TextView"
+            android:text=""
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/dim_grey"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <ToggleButton
+            android:id="@+id/add_location_icon"
+            android:background="@drawable/toggle_location"
+            android:layout_marginTop="10dp"
+            android:checked="false"
+            android:textOff=""
+            android:textOn=""
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+
+        <ImageButton
+            android:id="@+id/add_diary_pic"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@mipmap/picture_load"/>
+
+    </TableRow>
+
+</LinearLayout>
