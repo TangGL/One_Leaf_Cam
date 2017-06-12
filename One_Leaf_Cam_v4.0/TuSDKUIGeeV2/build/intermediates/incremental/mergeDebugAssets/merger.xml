@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="D:\code\Android\One_Leaf_Cam_v4.0\TuSDKUIGeeV2\assets"/><source path="D:\code\Android\One_Leaf_Cam_v4.0\TuSDKUIGeeV2\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="D:\code\Android\One_Leaf_Cam_v4.0\TuSDKUIGeeV2\build-types\debug\assets"/></dataSet></merger>

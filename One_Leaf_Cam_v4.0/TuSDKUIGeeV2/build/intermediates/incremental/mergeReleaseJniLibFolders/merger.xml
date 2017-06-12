@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="D:\code\Android\One_Leaf_Cam_v4.0\TuSDKUIGeeV2\libs"><file name="TuSDKUIGeeV2-1.1.0.jar" path="D:\code\Android\One_Leaf_Cam_v4.0\TuSDKUIGeeV2\libs\TuSDKUIGeeV2-1.1.0.jar"/></source></dataSet><dataSet config="release"><source path="D:\code\Android\One_Leaf_Cam_v4.0\TuSDKUIGeeV2\build-types\release\jniLibs"/></dataSet></merger>

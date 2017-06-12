@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/anm1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layoutAnimation="@anim/fade">
+
+    <ImageView
+        android:id="@+id/widget_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxHeight="320dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY" />
+
+</LinearLayout>
