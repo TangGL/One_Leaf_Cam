@@ -2,10 +2,20 @@ package com.example.ray.finalex;
 
 import android.animation.Animator;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -13,9 +23,14 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.ray.finalex.DiaryPacket.Diary;
 import com.example.ray.finalex.DiaryPacket.DiaryMainActivity;
+import com.example.ray.finalex.DiaryPacket.MyDBHelper;
 
 import org.lasque.tusdk.core.TuSdk;
 import org.lasque.tusdk.core.secret.StatisticsManger;
@@ -24,7 +39,9 @@ import org.lasque.tusdk.core.utils.hardware.InterfaceOrientation;
 import org.lasque.tusdk.impl.activity.TuFragmentActivity;
 import org.lasque.tusdk.modules.components.ComponentActType;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class MainActivity extends TuFragmentActivity {
 
@@ -37,6 +54,15 @@ public class MainActivity extends TuFragmentActivity {
     int total;
     int lasttotal;
     public MainActivity() {}
+
+    public static RelativeLayout main_bg;
+
+    private SensorManager mSensorManager;
+    private Sensor mAccelerrometerSensor;
+
+    MyDBHelper myDBHelper;
+    List<Diary> WDL;
+
 
     //绑定的时候发送了一个消息，这里接受，但是同时自己也不断发送信息，所以可以不断更新UI
     Handler myHandler = new Handler() {
@@ -109,6 +135,12 @@ public class MainActivity extends TuFragmentActivity {
         else if (tur == 3) {
             showDiary();
         }
+
+        main_bg = (RelativeLayout) findViewById(R.id.activity_main);
+
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mAccelerrometerSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
     }
 
     /**
@@ -205,6 +237,14 @@ public class MainActivity extends TuFragmentActivity {
         startActivity(intent);
         overridePendingTransition(R.anim.slide_bottom_new, R.anim.slide_bottom_last);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mSensorManager.registerListener(mSensorEventListener, mAccelerrometerSensor,
+                SensorManager.SENSOR_DELAY_GAME);
+    }
+
     @Override
     public void onStop() {
         super.onStop();
@@ -213,8 +253,107 @@ public class MainActivity extends TuFragmentActivity {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        mSensorManager.unregisterListener(mSensorEventListener);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(dynamicReceiver);
     }
+
+    private SensorEventListener mSensorEventListener = new SensorEventListener() {
+
+        private static final int SHAKE_TIMEOUT = 1000;
+        private float [] accValues = null;
+        private long lastShakeTime = 0;
+        private long curShakeTiem = 0;
+
+        private float [] newAccValues = new float[3];
+
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+
+            switch (event.sensor.getType()) {
+                case Sensor.TYPE_ACCELEROMETER:
+                    curShakeTiem = System.currentTimeMillis();
+                    if (curShakeTiem - lastShakeTime > SHAKE_TIMEOUT) {
+                        newAccValues[0] = event.values[0];
+                        newAccValues[1] = event.values[1];
+                        newAccValues[2] = event.values[2];
+
+                        if (accValues == null) {
+                            accValues = new float[3];
+                            accValues[0] = newAccValues[0];
+                            accValues[1] = newAccValues[1];
+                            accValues[2] = newAccValues[2];
+                        } else {
+                            if (Math.abs(accValues[0] - newAccValues[0]) > 2 || Math.abs(accValues[1] - newAccValues[1]) > 2
+                                    || Math.abs(accValues[2] - newAccValues[2]) > 2) {
+                                accValues[0] = newAccValues[0];
+                                accValues[1] = newAccValues[1];
+                                accValues[2] = newAccValues[2];
+
+                                WDL = queryData(MainActivity.this);
+                                int dairy_size = WDL.size();
+                                if (dairy_size == 0) {
+                                    Toast.makeText(MainActivity.this, "当前没有可替换背景哦!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    long random = System.currentTimeMillis();
+                                    int index = (int)(random % dairy_size);
+
+                                    String srcPath = WDL.get(index).getPic();
+                                    BitmapFactory.Options options = new BitmapFactory.Options();
+                                    options.inJustDecodeBounds = true; // 设置了此属性一定要记得将值设置为false
+                                    Bitmap bitmap = null;
+                                    bitmap = BitmapFactory.decodeFile(srcPath, options);
+                                    options.inPreferredConfig = Bitmap.Config.ARGB_4444;
+
+                                    options.inPurgeable = true;
+                                    options.inInputShareable = true;
+                                    options.inJustDecodeBounds = false;
+                                    bitmap = BitmapFactory.decodeFile(srcPath, options);
+
+                                    Drawable drawable = new BitmapDrawable(bitmap);
+
+                                    main_bg.setBackground(drawable);
+
+                                }
+                            }
+                        }
+                        lastShakeTime = curShakeTiem;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        }
+    };
+
+    public List<Diary> queryData(Context context) {
+        List<Diary> list = new ArrayList<Diary>();
+        myDBHelper = new MyDBHelper(context);
+        Cursor c = myDBHelper.query();
+        while (c.moveToNext()) {
+            String time = c.getString(c.getColumnIndex("time"));
+            String title = c.getString(c.getColumnIndex("title"));
+            String pic = c.getString(c.getColumnIndex("pic"));
+            String address = c.getString(c.getColumnIndex("address"));
+            String detail = c.getString(c.getColumnIndex("detail"));
+            Diary d = new Diary();
+            d.setTime(time);
+            d.setTitle(title);
+            d.setPic(pic);
+            d.setAddress(address);
+            d.setDetail(detail);
+            list.add(d);
+        }
+        return list;
+    }
+
 }
